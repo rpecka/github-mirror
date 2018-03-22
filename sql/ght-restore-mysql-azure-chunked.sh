@@ -10,7 +10,7 @@ splitDir="split-dir"
 
 usage()
 {
-  echo "Usage: $0 [-u dbuser ] [-p dbpasswd ] [-h dbhost] [-d database ] dump_dir"
+  echo "Usage: $0 [-u dbuser ] [-p dbpasswd ] [-h dbhost] [-d database ] [-s splitDir] dump_dir"
   echo
   echo "Restore a database from CSV and SQL files in dump_dir"
   echo "    -u database user (default: $user)"
@@ -19,6 +19,8 @@ usage()
   echo "    -d database to restore to. Must exist. (default: $db)"
   echo "    -e db engine: InnoDB for normal operations (default: $engine)"
   echo "                  MyISAM for fast import and querying speed"
+  echo "     -s the name of the directory where splits will be generated"
+  echo "                  All contents of this directory will be deleted"
 }
 
 if [ -z $1 ]
