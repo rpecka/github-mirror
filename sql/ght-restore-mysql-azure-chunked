@@ -37,7 +37,7 @@ do
   h)  host=$OPTARG ;;
   d)  db=$OPTARG ;;
   e)  engine=$OPTARG ;;
-  s)  splitDir=$OPTARG
+  s)  splitDir=$OPTARG ;;
   \?)     echo "Invalid option: -$OPTARG" >&2
     usage
     exit 1
