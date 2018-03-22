@@ -86,11 +86,11 @@ for f in $dumpDir/*.csv ; do
   mkdir "$splitDir"
 
   echo "Copying $f to $splitDir"
-  cp "$f $splitDir"
+  cp "$f" "$splitDir"
   echo "Done copying $f to splitDir"
 
   echo "Splitting $f in $splitDir"
-  split -l 500000 -d "$f $f"
+  split -l 500000 -d "$f" "$f"
   echo "Done splitting $f in $splitDir"
 
   echo "Removing $f from $splitDir"
