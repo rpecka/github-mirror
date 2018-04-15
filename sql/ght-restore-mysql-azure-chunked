@@ -87,17 +87,9 @@ for f in $dumpDir/*.csv ; do
   echo "Creating new split directory"
   mkdir "$splitDir"
 
-  echo "Copying $f to $splitDir"
-  cp "$f" "$splitDir"
-  echo "Done copying $f to splitDir"
-
-  echo "Splitting $name in $splitDir"
-  split -l 500000 -d "$splitDir/$name" "$splitDir/$name"
-  echo "Done splitting $name in $splitDir"
-
-  echo "Removing $name from $splitDir"
-  rm -rf "$splitDir/$name"
-  echo "Removed $name from $splitDir"
+  echo "Splitting $name into $splitDir"
+  split -l 500000 "$f" "$splitDir/$name"
+  echo "Done splitting $name into $splitDir"
 
   for s in $splitDir/*.csv* ; do
   	table=`basename $f|cut -f1 -d'.'`
