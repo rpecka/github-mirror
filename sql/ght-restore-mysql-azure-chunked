@@ -29,7 +29,7 @@ then
   exit 1
 fi
 
-while getopts "u:p:h:d:e:" o
+while getopts "u:p:h:d:e:s:" o
 do
   case $o in
   u)  user=$OPTARG ;;
@@ -78,6 +78,8 @@ $mysql
 
 # 2. Restore CSV files with disabled FK checks
 for f in $dumpDir/*.csv ; do
+  name=`basename $f`
+
   echo "`date` Removing split directory: $splitDir"
   rm -rf "$splitDir"
   echo "`date` Removed split directory"
@@ -89,13 +91,13 @@ for f in $dumpDir/*.csv ; do
   cp "$f" "$splitDir"
   echo "Done copying $f to splitDir"
 
-  echo "Splitting $f in $splitDir"
-  split -l 500000 -d "$splitDir/$f"
-  echo "Done splitting $f in $splitDir"
+  echo "Splitting $name in $splitDir"
+  split -l 500000 -d "$splitDir/$name" "$splitDir/$name"
+  echo "Done splitting $name in $splitDir"
 
-  echo "Removing $f from $splitDir"
-  rm -rf "$splitDir/$f"
-  echo "Removed $f from $splitDir"
+  echo "Removing $name from $splitDir"
+  rm -rf "$splitDir/$name"
+  echo "Removed $name from $splitDir"
 
   for s in $splitDir/*.csv* ; do
   	table=`basename $f|cut -f1 -d'.'`
