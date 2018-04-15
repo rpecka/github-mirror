@@ -90,7 +90,7 @@ for f in $dumpDir/*.csv ; do
   echo "Done copying $f to splitDir"
 
   echo "Splitting $f in $splitDir"
-  split -l 500000 -d "$f" "$f"
+  split -l 500000 -d "$splitDir/$f"
   echo "Done splitting $f in $splitDir"
 
   echo "Removing $f from $splitDir"
@@ -99,10 +99,10 @@ for f in $dumpDir/*.csv ; do
 
   for s in $splitDir/*.csv* ; do
   	table=`basename $f|cut -f1 -d'.'`
-  echo "`date` Restoring table $table"
+  	echo "`date` Restoring table $table"
 
-  # Make sure to use LOAD DATA LOCAL in the following command because other loads are not permitted by azure
-  echo "SET foreign_key_checks = 0; LOAD DATA LOCAL INFILE '$s' INTO TABLE $table CHARACTER SET UTF8 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' " |$mysql || exit 1
+  	# Make sure to use LOAD DATA LOCAL in the following command because other loads are not permitted by azure
+  	echo "SET foreign_key_checks = 0; LOAD DATA LOCAL INFILE '$s' INTO TABLE $table CHARACTER SET UTF8 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' " |$mysql || exit 1
   done
 
 done
